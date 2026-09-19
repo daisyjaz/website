@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Furrokh Daisy Art</title>
+
+<style>
+
+:root {
+    --ochre: #C79A3B;
+    --magenta: #C03A7A;
+    --blue: #4C6FAF;
+    --black: #222;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: white;
+    color: var(--black);
+    line-height: 1.6;
+}
+
+header {
+    padding: 80px 10%;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--magenta);
+}
+
+.hero-line {
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        var(--ochre),
+        var(--magenta),
+        var(--blue)
+    );
+    margin-top: 20px;
+}
+
+.intro {
+    max-width: 700px;
+    padding: 0 10% 60px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 50px;
+    padding: 0 10% 100px;
+}
+
+.artwork {
+    transition: transform 0.3s ease;
+}
+
+.artwork:hover {
+    transform: translateY(-5px);
+}
+
+.artwork img {
+    width: 100%;
+    display: block;
+}
+
+.art-title {
+    margin-top: 15px;
+    font-size: 1.2rem;
+}
+
+.price {
+    color: var(--blue);
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+.description {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.buy-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--magenta);
+    color: white;
+    text-decoration: none;
+}
+
+.buy-button:hover {
+    background: var(--ochre);
+}
+
+footer {
+    text-align: center;
+    padding: 60px;
+    border-top: 1px solid #eee;
+}
+
+.email {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+</style>
+</head>
+
+<body style="background-color: #f3efe6;">
+
+<header>
+    <h1>Furrokh Daisy</h1>
+    <p class="subtitle">Paintings inspired by colour, ecology and place</p>
+    <div class="hero-line"></div>
+</header>
+
+<section class="intro">
+    <p>
+        Original paintings available for purchase.
+        Each work is unique and created using a limited palette of
+        yellow ochre, magenta and titanium blue.
+    </p>
+</section>
+
+<section class="gallery">
+
+    <div class="artwork">
+        painting1.jpgPainting 1">
+
+        <h3 class="art-title">Evening Light</h3>
+
+        <p class="price">CHF 250</p>
+
+        <p class="description">
+            Acrylic on canvas, 40 × 50 cm
+        </p>
+
+        https://your-payment-link.com
+            Purchase
+        </a>
+    </div>
+
+    <div class="artwork">
+        painting2.jpg2">
+
+        <h3 class="art-title">Meadow Memory</h3>
+
+        <p class="price">CHF 300</p>
+
+        <p class="description">
+            Acrylic on canvas, 50 × 70 cm
+        </p>
+
+        <a href="https://your-payment
+    </div>
+
+    <div class="artwork">
+        .jpg" alt="Painting 3">
+
+        <h3 class="art-title">Blue Quiet</h3>
+
+        <p class="price">CHF 220</p>
+
+        <p class="description">
+            Acrylic on canvas, 30 × 40 cm
+        </p>
+
+        <a href="https://your-payment-link.comv>
+
+</section>
+
+<footer>
+    <p>
+        Contact:
+        your@email.com
+    </p>
+</footer>
+
+</body>
+</html>
