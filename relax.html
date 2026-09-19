@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relax | Daisy Furrokh</title>
+    <link rel="icon" type="image/png" href="thai_chilli_snapshot_tiny.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f3efe6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: auto;
+        }
+
+        body {
+            background-color: var(--paper);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 8px;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        p,
+        .site-nav,
+        .footer {
+            font-family: "Google Sans Flex", sans-serif;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            margin: 20px 30px 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .brand-link,
+        .site-nav a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 28px;
+            font-weight: 300;
+        }
+
+        .site-nav a:hover,
+        .site-nav a:focus-visible,
+        .brand-link:hover,
+        .brand-link:focus-visible {
+            text-decoration: underline;
+        }
+
+        .site-nav a[aria-current="page"] {
+            font-weight: 400;
+        }
+
+        main {
+            flex: 1;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .sound-toggle {
+            align-items: center;
+            align-self: flex-start;
+            background: transparent;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            margin: -22px 30px 8px;
+            padding: 0;
+            width: 30px;
+        }
+
+        .sound-toggle:hover,
+        .sound-toggle:focus-visible {
+            background-color: rgba(0, 0, 0, .06);
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+        }
+
+        .sound-toggle svg {
+            height: 15px;
+            width: 15px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 300;
+            margin: 0 0 18px;
+            text-align: center;
+        }
+
+        .garden {
+            display: grid;
+            grid-template-columns: repeat(10, minmax(0, 1fr));
+            gap: clamp(2px, .7vw, 10px);
+            margin: 0 auto 20px;
+            max-width: 1200px;
+            padding: 4px 2vw;
+        }
+
+        .leaf {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            display: grid;
+            min-height: clamp(58px, 8vw, 92px);
+            padding: 2px;
+            place-items: center;
+            transform: rotate(var(--tilt)) translateY(var(--rise));
+            transition: filter 220ms ease, transform 260ms ease;
+        }
+
+        .leaf img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            width: clamp(32px, 5.5vw, 68px);
+            filter: saturate(.72) hue-rotate(var(--hue));
+            transition: filter 220ms ease, transform 260ms ease;
+        }
+
+        .leaf:hover,
+        .leaf:focus-visible {
+            filter: drop-shadow(0 10px 12px rgba(65, 77, 39, .18));
+            outline: none;
+            transform: rotate(var(--tilt)) translateY(calc(var(--rise) - 10px)) scale(1.08);
+        }
+
+        .leaf:hover img,
+        .leaf:focus-visible img {
+            filter: saturate(1.35) brightness(1.25) drop-shadow(0 0 5px rgba(255, 255, 255, .45));
+            transform: rotate(8deg);
+        }
+
+        .footer {
+            background-color: #f5f5f5;
+            font-size: 16px;
+            font-weight: 200;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 18px;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .site-nav {
+                flex-wrap: wrap;
+                gap: 16px 24px;
+            }
+
+            .garden {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 1px;
+                padding-left: 1vw;
+                padding-right: 1vw;
+            }
+
+            .leaf {
+                min-height: clamp(52px, 16vw, 76px);
+            }
+
+            .leaf img {
+                width: clamp(30px, 12vw, 54px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <h1><a class="brand-link" href="22.html">Daisy Furrokh</a></h1>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="22.html">Home</a>
+            <a href="bengaluru_night_print_buy.html">Shop</a>
+            <a href="archive.html">Archive</a>
+            <a href="relax.html" aria-current="page">Relax</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Mute sound" aria-pressed="false" title="Mute sound">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z"/>
+            <path d="M16 9.5c1.7 1.4 1.7 3.6 0 5"/>
+            <path d="M18.5 7c3.2 2.8 3.2 7.2 0 10"/>
+        </svg>
+    </button>
+
+    <main>
+        <div class="garden" aria-label="Interactive leaf garden">
+            <button class="leaf" style="--tilt: -12deg; --rise: 16px; --hue: 330deg" aria-label="Play note 1"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 8deg; --rise: -4px; --hue: 145deg" aria-label="Play note 2"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -4deg; --rise: 20px; --hue: 22deg" aria-label="Play note 3"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 14deg; --rise: -12px; --hue: 330deg" aria-label="Play note 4"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -16deg; --rise: 8px; --hue: 145deg" aria-label="Play note 5"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 5deg; --rise: 26px; --hue: 22deg" aria-label="Play note 6"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -9deg; --rise: -10px; --hue: 330deg" aria-label="Play note 7"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 18deg; --rise: 12px; --hue: 145deg" aria-label="Play note 8"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -6deg; --rise: -18px; --hue: 22deg" aria-label="Play note 9"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 11deg; --rise: 18px; --hue: 330deg" aria-label="Play note 10"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -14deg; --rise: 0; --hue: 145deg" aria-label="Play note 11"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 7deg; --rise: -8px; --hue: 22deg" aria-label="Play note 12"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -10deg; --rise: 22px; --hue: 330deg" aria-label="Play note 13"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 16deg; --rise: -14px; --hue: 145deg" aria-label="Play note 14"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -2deg; --rise: 10px; --hue: 22deg" aria-label="Play note 15"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 13deg; --rise: 24px; --hue: 330deg" aria-label="Play note 16"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: -18deg; --rise: -6px; --hue: 145deg" aria-label="Play note 17"><img src="leaf.png" alt=""></button>
+            <button class="leaf" style="--tilt: 3deg; --rise: 16px; --hue: 22deg" aria-label="Play note 18"><img src="leaf.png" alt=""></button>
+        </div>
+    </main>
+
+    <footer class="footer">© 2026 Daisy Furrokh. All rights reserved.</footer>
+
+    <script>
+        const notes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66];
+        let audioContext;
+        let soundEnabled = true;
+        const garden = document.querySelector(".garden");
+        const seedLeaves = [...garden.querySelectorAll(".leaf")];
+        const soundToggle = document.getElementById("sound-toggle");
+        const leafPalette = [330, 145, 22];
+
+        for (let copy = 1; copy < 5; copy += 1) {
+            seedLeaves.forEach((leaf, index) => {
+                const clone = leaf.cloneNode(true);
+                clone.setAttribute("aria-label", `Play note ${copy * seedLeaves.length + index + 1}`);
+                clone.style.setProperty("--hue", `${leafPalette[(copy * seedLeaves.length + index) % leafPalette.length]}deg`);
+                garden.appendChild(clone);
+            });
+        }
+
+        function playNote(index) {
+            if (!soundEnabled) {
+                return;
+            }
+
+            audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+            audioContext.resume();
+
+            const now = audioContext.currentTime;
+            const oscillator = audioContext.createOscillator();
+            const overtone = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const overtoneGain = audioContext.createGain();
+            oscillator.type = "sine";
+            overtone.type = "sine";
+            oscillator.frequency.value = notes[index % notes.length];
+            overtone.frequency.value = oscillator.frequency.value * 2.01;
+            gain.gain.setValueAtTime(0.0001, now);
+            overtoneGain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.18, now + 0.012);
+            overtoneGain.gain.exponentialRampToValueAtTime(0.06, now + 0.008);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+            overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+            oscillator.connect(gain).connect(audioContext.destination);
+            overtone.connect(overtoneGain).connect(audioContext.destination);
+            oscillator.start(now);
+            overtone.start(now);
+            oscillator.stop(now + 0.92);
+            overtone.stop(now + 0.57);
+        }
+
+        document.querySelectorAll(".leaf").forEach((leaf, index) => {
+            leaf.addEventListener("pointerenter", () => playNote(index));
+            leaf.addEventListener("focus", () => playNote(index));
+        });
+
+        soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            const label = soundEnabled ? "Mute sound" : "Enable sound";
+            soundToggle.setAttribute("aria-label", label);
+            soundToggle.setAttribute("title", label);
+            soundToggle.setAttribute("aria-pressed", String(!soundEnabled));
+        });
+    </script>
+</body>
+</html>

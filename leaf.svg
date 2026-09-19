@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="340 0 220 200" role="img" aria-labelledby="title">
+  <title>Painted leaf cutout</title>
+  <defs>
+    <clipPath id="painted-leaf">
+      <path d="M373 101C385 61 401 17 431-5c25-18 60-10 78 12-24 45-75 80-136 94Z"/>
+    </clipPath>
+  </defs>
+  <image href="thai_chilli.jpg" x="0" y="0" width="716" height="1017" clip-path="url(#painted-leaf)" preserveAspectRatio="none"/>
+  <path d="M373 101C385 61 401 17 431-5c25-18 60-10 78 12-24 45-75 80-136 94Z" fill="none" stroke="#ed263c" stroke-width="5" stroke-linejoin="round"/>
+</svg>
