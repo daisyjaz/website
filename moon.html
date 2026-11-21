@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relax | Daisy Furrokh</title>
+    <link rel="icon" type="image/png" href="moon_cursor.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            color: #242020;
+            font-family: "Google Sans Flex", sans-serif;
+        }
+
+        .painting {
+            height: 100%;
+            inset: 0;
+            object-fit: cover;
+            object-position: center 12%;
+            pointer-events: none;
+            position: fixed;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .site-header {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            gap: 32px;
+            margin: 20px 30px;
+            position: relative;
+            z-index: 3;
+            text-shadow: 0 0 4px rgba(255, 255, 255, .9);
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .brand-link,
+        .site-nav a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 28px;
+            font-weight: 300;
+        }
+
+        .site-nav a:hover,
+        .site-nav a:focus-visible,
+        .brand-link:hover,
+        .brand-link:focus-visible {
+            text-decoration: underline;
+        }
+
+        .site-nav a[aria-current="page"] {
+            font-weight: 400;
+        }
+
+        .moon-text {
+            left: 50%;
+            margin: 0;
+            position: fixed;
+            text-align: center;
+            top: 91px;
+            transform: translateX(-50%);
+            width: max-content;
+            max-width: calc(100vw - 32px);
+            z-index: 2;
+            font-size: 16px;
+            font-weight: 200;
+        }
+
+        .sound-toggle {
+            align-items: center;
+            background: transparent;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            left: 30px;
+            padding: 0;
+            position: fixed;
+            top: 86px;
+            width: 30px;
+            z-index: 4;
+        }
+
+        .sound-toggle:hover,
+        .sound-toggle:focus-visible {
+            background-color: rgba(0, 0, 0, .06);
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+        }
+
+        .sound-toggle svg {
+            height: 15px;
+            width: 15px;
+        }
+
+        .sound-toggle [hidden] {
+            display: none;
+        }
+
+        .moon-origin-cover {
+            background: #fbf9f5;
+            border-radius: 50%;
+            left: 0;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            z-index: 1;
+        }
+
+        .moon-origin-cover[hidden] {
+            display: none;
+        }
+
+        .draggable-moon {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            cursor: grab;
+            left: 0;
+            mix-blend-mode: darken;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            touch-action: none;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+        }
+
+        .draggable-moon:active,
+        .draggable-moon.dragging {
+            cursor: grabbing;
+        }
+
+        .draggable-moon:focus-visible {
+            outline: 2px solid #087c70;
+            outline-offset: 4px;
+        }
+
+        .moon-surface {
+            display: block;
+            background-image: url("moon_bath.png");
+            background-repeat: no-repeat;
+            clip-path: ellipse(41% 39% at 50% 50%);
+            height: 100%;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .draggable-moon.in-lake {
+            filter: drop-shadow(0 5px 6px rgba(13, 51, 101, .42));
+        }
+
+        .draggable-moon.floating {
+            animation: moon-float 1.8s ease-in-out infinite;
+        }
+
+        @keyframes moon-float {
+            50% {
+                translate: 0 -4px;
+            }
+        }
+
+        .footer {
+            bottom: 0;
+            color: #a9cee5;
+            font-size: 12px;
+            font-weight: 200;
+            left: 0;
+            padding: 12px 20px;
+            position: fixed;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(13, 30, 70, .85);
+            width: 100%;
+            z-index: 3;
+        }
+
+        @media (max-width: 600px) {
+            .painting {
+                object-fit: cover;
+            }
+
+            .site-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 18px;
+                margin: 18px 20px;
+            }
+
+            .moon-text {
+                left: 50%;
+                top: 119px;
+            }
+
+            .site-nav {
+                bottom: 46px;
+                color: #fff;
+                flex-wrap: nowrap;
+                font-size: 14px;
+                gap: 10px;
+                justify-content: center;
+                left: 50%;
+                max-width: calc(100vw - 32px);
+                position: fixed;
+                text-shadow: 0 1px 3px rgba(20, 10, 18, .9);
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+
+            .sound-toggle {
+                left: 20px;
+                top: 112px;
+            }
+        }
+
+        @media (max-aspect-ratio: 1/1) {
+            body {
+                background-color: #311827;
+            }
+
+            .painting {
+                object-fit: contain;
+                object-position: center top;
+            }
+
+            .site-header {
+                color: #fff;
+                left: 0;
+                margin: 0 20px;
+                position: fixed;
+                right: 0;
+                top: calc(64.4167vw + 8px);
+            }
+
+            .moon-text {
+                left: 50%;
+                top: 35px;
+            }
+
+            .sound-toggle {
+                color: #242020;
+                top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img class="painting" id="painting" src="moon_bath.png" alt="">
+
+    <header class="site-header">
+        <h1><a class="brand-link" href="22.html">Daisy Furrokh</a></h1>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="22.html">Home</a>
+            <a href="bengaluru_night_print_buy.html">Shop</a>
+            <a href="archive.html">Archive</a>
+            <a href="moon.html" aria-current="page">Relax</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Mute sound" aria-pressed="false" title="Mute sound">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7">
+            <g id="sound-on-icon">
+                <path d="M4 9v6h4l5 4V5L8 9H4Z"/>
+                <path d="M16 9.5c1.7 1.4 1.7 3.6 0 5"/>
+                <path d="M18.5 7c3.2 2.8 3.2 7.2 0 10"/>
+            </g>
+            <g id="sound-off-icon" hidden>
+                <path d="M4 9v6h4l5 4V5L8 9H4Z"/>
+                <path d="m17 9 5 6m0-6-5 6"/>
+            </g>
+        </svg>
+    </button>
+
+    <p class="moon-text">Take the moon for a swim</p>
+
+    <div class="moon-origin-cover" id="moon-origin-cover" aria-hidden="true" hidden></div>
+    <button class="draggable-moon" id="draggable-moon" type="button" aria-label="Drag the green moon into the lake" title="Drag the moon">
+        <span class="moon-surface" aria-hidden="true"></span>
+    </button>
+
+    <footer class="footer">© 2026 Daisy Furrokh. All rights reserved.</footer>
+
+    <script>
+        const notes = [392, 440, 523.25, 587.33, 659.25, 783.99, 880];
+        const painting = document.getElementById("painting");
+        const moon = document.getElementById("draggable-moon");
+        const originCover = document.getElementById("moon-origin-cover");
+        const soundToggle = document.getElementById("sound-toggle");
+        const soundOnIcon = document.getElementById("sound-on-icon");
+        const soundOffIcon = document.getElementById("sound-off-icon");
+        let audioContext;
+        let soundEnabled = true;
+        let lastNoteAt = -Infinity;
+        let isDragging = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+        let wasInLake = false;
+        let moonImageX = 3164;
+        let moonImageY = 340;
+        let sceneLayout;
+
+        function getSceneLayout() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const imageWidth = painting.naturalWidth;
+            const imageHeight = painting.naturalHeight;
+
+            if (getComputedStyle(painting).objectFit === "fill") {
+                return {
+                    scaleX: width / imageWidth,
+                    scaleY: height / imageHeight,
+                    offsetX: 0,
+                    offsetY: 0
+                };
+            }
+
+            const fit = getComputedStyle(painting).objectFit;
+            const scale = fit === "contain"
+                ? Math.min(width / imageWidth, height / imageHeight)
+                : Math.max(width / imageWidth, height / imageHeight);
+            const renderedWidth = imageWidth * scale;
+            const renderedHeight = imageHeight * scale;
+            const verticalObjectPosition = fit === "contain" ? 0 : .12;
+            return {
+                scaleX: scale,
+                scaleY: scale,
+                offsetX: (width - renderedWidth) / 2,
+                offsetY: (height - renderedHeight) * verticalObjectPosition
+            };
+        }
+
+        function imageToViewport(x, y) {
+            return {
+                x: sceneLayout.offsetX + x * sceneLayout.scaleX,
+                y: sceneLayout.offsetY + y * sceneLayout.scaleY
+            };
+        }
+
+        function viewportToImage(x, y) {
+            return {
+                x: (x - sceneLayout.offsetX) / sceneLayout.scaleX,
+                y: (y - sceneLayout.offsetY) / sceneLayout.scaleY
+            };
+        }
+
+        function positionMoon() {
+            sceneLayout = getSceneLayout();
+            const position = imageToViewport(moonImageX, moonImageY);
+            moon.style.left = `${position.x}px`;
+            moon.style.top = `${position.y}px`;
+            moon.style.width = `${310 * sceneLayout.scaleX}px`;
+            moon.style.height = `${310 * sceneLayout.scaleY}px`;
+            const moonSurface = moon.querySelector(".moon-surface");
+            moonSurface.style.backgroundSize = `${painting.naturalWidth * sceneLayout.scaleX}px ${painting.naturalHeight * sceneLayout.scaleY}px`;
+            moonSurface.style.backgroundPosition = `${-3010 * sceneLayout.scaleX}px ${-190 * sceneLayout.scaleY}px`;
+
+            const origin = imageToViewport(3164, 340);
+            originCover.style.left = `${origin.x - 138 * sceneLayout.scaleX}px`;
+            originCover.style.top = `${origin.y - 132 * sceneLayout.scaleY}px`;
+            originCover.style.width = `${276 * sceneLayout.scaleX}px`;
+            originCover.style.height = `${264 * sceneLayout.scaleY}px`;
+        }
+
+        function isInLake(point) {
+            const horizontal = (point.x - 1840) / 900;
+            const vertical = (point.y - 1535) / 205;
+            return horizontal * horizontal + vertical * vertical <= 1;
+        }
+
+        function playNote(index, underwater = false) {
+            if (!soundEnabled) {
+                return;
+            }
+
+            audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+            audioContext.resume();
+
+            const now = audioContext.currentTime;
+            const oscillator = audioContext.createOscillator();
+            const overtone = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const overtoneGain = audioContext.createGain();
+            let underwaterFilter;
+            let underwaterShaper;
+
+            if (underwater) {
+                underwaterFilter = audioContext.createBiquadFilter();
+                underwaterFilter.type = "lowpass";
+                underwaterFilter.frequency.value = 700;
+                underwaterFilter.Q.value = 1.1;
+                underwaterShaper = audioContext.createWaveShaper();
+                const curve = new Float32Array(256);
+                const amount = 3.5;
+                for (let sample = 0; sample < curve.length; sample += 1) {
+                    const input = (sample * 2) / (curve.length - 1) - 1;
+                    curve[sample] = Math.tanh(input * amount) / amount;
+                }
+                underwaterShaper.curve = curve;
+                underwaterShaper.oversample = "2x";
+                underwaterShaper.connect(underwaterFilter).connect(audioContext.destination);
+            }
+
+            oscillator.type = "sine";
+            overtone.type = "sine";
+            oscillator.frequency.value = notes[index % notes.length] * (underwater ? 0.68 : 1);
+            overtone.frequency.value = oscillator.frequency.value * (underwater ? 1.5 : 2.01);
+            gain.gain.setValueAtTime(0.0001, now);
+            overtoneGain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.18, now + 0.012);
+            overtoneGain.gain.exponentialRampToValueAtTime(0.06, now + 0.008);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+            overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+            const output = underwater ? underwaterShaper : audioContext.destination;
+            oscillator.connect(gain).connect(output);
+            overtone.connect(overtoneGain).connect(output);
+            oscillator.start(now);
+            overtone.start(now);
+            oscillator.stop(now + 0.92);
+            overtone.stop(now + 0.57);
+        }
+
+        function playDragNote(point, inLake, crossedLakeEdge = false) {
+            const now = performance.now();
+            if (now - lastNoteAt < 160 && !crossedLakeEdge) {
+                return;
+            }
+
+            lastNoteAt = now;
+            const horizontalPosition = Math.max(0, Math.min(0.999, point.x / painting.naturalWidth));
+            const noteIndex = Math.floor(horizontalPosition * notes.length);
+            playNote(inLake ? (noteIndex + 2) % notes.length : noteIndex, inLake);
+        }
+
+        moon.addEventListener("pointerdown", (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+
+            event.preventDefault();
+            isDragging = true;
+            moon.classList.remove("floating");
+            moon.classList.add("dragging");
+            originCover.hidden = false;
+            const bounds = moon.getBoundingClientRect();
+            dragOffsetX = event.clientX - (bounds.left + bounds.width / 2);
+            dragOffsetY = event.clientY - (bounds.top + bounds.height / 2);
+            wasInLake = isInLake(viewportToImage(moonImageX, moonImageY));
+            moon.setPointerCapture(event.pointerId);
+            playNote(4);
+        });
+
+        moon.addEventListener("pointermove", (event) => {
+            if (!isDragging) {
+                return;
+            }
+
+            const x = Math.max(0, Math.min(window.innerWidth, event.clientX - dragOffsetX));
+            const y = Math.max(0, Math.min(window.innerHeight, event.clientY - dragOffsetY));
+            moon.style.left = `${x}px`;
+            moon.style.top = `${y}px`;
+            const point = viewportToImage(x, y);
+            moonImageX = point.x;
+            moonImageY = point.y;
+            const inLake = isInLake(point);
+            const crossedLakeEdge = inLake !== wasInLake;
+            wasInLake = inLake;
+            moon.classList.toggle("in-lake", inLake);
+            playDragNote(point, inLake, crossedLakeEdge);
+        });
+
+        function finishDrag(event) {
+            if (!isDragging) {
+                return;
+            }
+
+            isDragging = false;
+            moon.classList.remove("dragging");
+            const point = viewportToImage(moonImageX * sceneLayout.scaleX + sceneLayout.offsetX, moonImageY * sceneLayout.scaleY + sceneLayout.offsetY);
+            const inLake = isInLake(point);
+            moon.classList.toggle("in-lake", inLake);
+            moon.classList.toggle("floating", inLake);
+            if (inLake) {
+                playNote(1, true);
+            }
+
+            if (moon.hasPointerCapture(event.pointerId)) {
+                moon.releasePointerCapture(event.pointerId);
+            }
+        }
+
+        moon.addEventListener("pointerup", finishDrag);
+        moon.addEventListener("pointercancel", finishDrag);
+        painting.addEventListener("load", positionMoon, { once: true });
+        window.addEventListener("resize", positionMoon);
+
+        soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            const label = soundEnabled ? "Mute sound" : "Enable sound";
+            soundToggle.setAttribute("aria-label", label);
+            soundToggle.setAttribute("title", label);
+            soundToggle.setAttribute("aria-pressed", String(!soundEnabled));
+            soundOnIcon.toggleAttribute("hidden", !soundEnabled);
+            soundOffIcon.toggleAttribute("hidden", soundEnabled);
+        });
+    </script>
+</body>
+</html>
