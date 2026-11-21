@@ -1,0 +1,196 @@
+@media (max-width: 700px) {
+    .mobile-menu-toggle,
+    .mobile-menu-panel,
+    .mobile-menu-panel * {
+        box-sizing: border-box;
+    }
+
+    .site-nav {
+        display: none !important;
+    }
+
+    .site-header > h1 {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    body:has(.site-nav a[aria-current="page"][href="22.html"]) .site-header > h1 {
+        left: 50vw;
+        margin: 0;
+        position: fixed;
+        top: max(20px, env(safe-area-inset-top));
+        transform: translateX(-50%);
+        width: max-content;
+        z-index: 999;
+    }
+
+    .mobile-menu-toggle {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        display: grid;
+        height: 54px;
+        left: max(16px, env(safe-area-inset-left));
+        padding: 0;
+        place-items: center;
+        position: fixed;
+        top: max(16px, env(safe-area-inset-top));
+        width: 54px;
+        z-index: 1003;
+    }
+
+    .mobile-menu-toggle img {
+        display: block;
+        height: 42px;
+        width: 42px;
+    }
+
+    .mobile-menu-backdrop {
+        background: rgba(22, 24, 23, .42);
+        border: 0;
+        inset: 0;
+        opacity: 0;
+        padding: 0;
+        position: fixed;
+        transition: opacity 220ms ease, visibility 220ms ease;
+        visibility: hidden;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .mobile-menu-panel {
+        background: #196ee7;
+        bottom: 0;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, .2);
+        color: #fff;
+        left: 0;
+        max-width: 360px;
+        overflow-y: auto;
+        padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+        position: fixed;
+        top: 0;
+        transform: translateX(-105%);
+        transition: transform 260ms cubic-bezier(.2, .75, .25, 1);
+        visibility: hidden;
+        width: min(86vw, 360px);
+        z-index: 1001;
+    }
+
+    .mobile-menu-heading {
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, .35);
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        min-height: 56px;
+        padding-bottom: 16px;
+    }
+
+    .mobile-menu-title {
+        font-family: "Google Sans Flex", sans-serif;
+        font-size: 26px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .mobile-menu-close {
+        align-items: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, .7);
+        border-radius: 50%;
+        color: #fff;
+        display: grid;
+        height: 48px;
+        padding: 0;
+        place-items: center;
+        width: 48px;
+    }
+
+    .mobile-menu-close-mark {
+        height: 20px;
+        position: relative;
+        width: 20px;
+    }
+
+    .mobile-menu-close-mark::before,
+    .mobile-menu-close-mark::after {
+        background: currentColor;
+        content: "";
+        height: 2px;
+        left: 1px;
+        position: absolute;
+        top: 9px;
+        transform: rotate(45deg);
+        width: 18px;
+    }
+
+    .mobile-menu-close-mark::after {
+        transform: rotate(-45deg);
+    }
+
+    .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .mobile-menu-link {
+        align-items: center;
+        border-left: 3px solid transparent;
+        border-radius: 2px;
+        color: #fff;
+        display: flex;
+        font-family: "Google Sans Flex", sans-serif;
+        font-size: 24px;
+        font-weight: 300;
+        min-height: 60px;
+        padding: 10px 14px;
+        text-decoration: none;
+    }
+
+    .mobile-menu-link[aria-current="page"] {
+        background: rgba(255, 255, 255, .14);
+        border-left-color: #fff;
+        font-weight: 500;
+    }
+
+    .mobile-menu-link:focus-visible,
+    .mobile-menu-close:focus-visible,
+    .mobile-menu-toggle:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+    }
+
+    .mobile-menu-toggle:focus-visible {
+        outline-color: #196ee7;
+    }
+
+    body.mobile-nav-open {
+        overflow: hidden;
+    }
+
+    body.mobile-nav-open .mobile-menu-toggle {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    body.mobile-nav-open .mobile-menu-backdrop {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body.mobile-nav-open .mobile-menu-panel {
+        transform: translateX(0);
+        visibility: visible;
+    }
+}
+
+@media (min-width: 701px) {
+    .mobile-menu-toggle,
+    .mobile-menu-backdrop,
+    .mobile-menu-panel {
+        display: none !important;
+    }
+}

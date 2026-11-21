@@ -8,3 +8,13 @@ button,
 [role="button"] {
     cursor: url("moon_cursor.png") 16 16, pointer !important;
 }
+
+@media (max-width: 700px) {
+    html,
+    body,
+    a,
+    button,
+    [role="button"] {
+        cursor: auto !important;
+    }
+}

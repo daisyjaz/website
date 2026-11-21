@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <script src="mobile-nav.js" defer></script>
     <title>Relax | Daisy Furrokh</title>
     <link rel="icon" type="image/png" href="moon_cursor.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,7 +146,6 @@
             border: 0;
             cursor: grab;
             left: 0;
-            mix-blend-mode: darken;
             padding: 0;
             position: fixed;
             top: 0;
@@ -158,16 +159,21 @@
             cursor: grabbing;
         }
 
+        .draggable-moon.dragging {
+            mix-blend-mode: normal;
+            z-index: 10;
+        }
+
         .draggable-moon:focus-visible {
             outline: 2px solid #087c70;
             outline-offset: 4px;
         }
 
         .moon-surface {
-            display: block;
-            background-image: url("moon_bath.png");
+            background-image: url("moon_sprite.png");
             background-repeat: no-repeat;
-            clip-path: ellipse(41% 39% at 50% 50%);
+            background-size: 100% 100%;
+            display: block;
             height: 100%;
             pointer-events: none;
             width: 100%;
@@ -175,6 +181,7 @@
 
         .draggable-moon.in-lake {
             filter: drop-shadow(0 5px 6px rgba(13, 51, 101, .42));
+            mix-blend-mode: darken;
         }
 
         .draggable-moon.floating {
@@ -204,6 +211,7 @@
         @media (max-width: 600px) {
             .painting {
                 object-fit: cover;
+                object-position: 90% 12%;
             }
 
             .site-header {
@@ -245,8 +253,8 @@
             }
 
             .painting {
-                object-fit: contain;
-                object-position: center top;
+                object-fit: cover;
+                object-position: 90% 12%;
             }
 
             .site-header {
@@ -265,7 +273,7 @@
 
             .sound-toggle {
                 color: #242020;
-                top: 30px;
+                top: 82px;
             }
         }
     </style>
@@ -342,17 +350,19 @@
             }
 
             const fit = getComputedStyle(painting).objectFit;
+            const objectPosition = getComputedStyle(painting).objectPosition
+                .split(" ")
+                .map((value) => parseFloat(value) / 100);
             const scale = fit === "contain"
                 ? Math.min(width / imageWidth, height / imageHeight)
                 : Math.max(width / imageWidth, height / imageHeight);
             const renderedWidth = imageWidth * scale;
             const renderedHeight = imageHeight * scale;
-            const verticalObjectPosition = fit === "contain" ? 0 : .12;
             return {
                 scaleX: scale,
                 scaleY: scale,
-                offsetX: (width - renderedWidth) / 2,
-                offsetY: (height - renderedHeight) * verticalObjectPosition
+                offsetX: (width - renderedWidth) * (objectPosition[0] || 0),
+                offsetY: (height - renderedHeight) * (objectPosition[1] || 0)
             };
         }
 
@@ -377,9 +387,6 @@
             moon.style.top = `${position.y}px`;
             moon.style.width = `${310 * sceneLayout.scaleX}px`;
             moon.style.height = `${310 * sceneLayout.scaleY}px`;
-            const moonSurface = moon.querySelector(".moon-surface");
-            moonSurface.style.backgroundSize = `${painting.naturalWidth * sceneLayout.scaleX}px ${painting.naturalHeight * sceneLayout.scaleY}px`;
-            moonSurface.style.backgroundPosition = `${-3010 * sceneLayout.scaleX}px ${-190 * sceneLayout.scaleY}px`;
 
             const origin = imageToViewport(3164, 340);
             originCover.style.left = `${origin.x - 138 * sceneLayout.scaleX}px`;
