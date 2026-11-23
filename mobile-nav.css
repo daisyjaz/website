@@ -15,7 +15,7 @@
         width: 100%;
     }
 
-    body:has(.site-nav a[aria-current="page"][href="22.html"]) .site-header > h1 {
+    body:has(.site-nav a[aria-current="page"][href="home/"]) .site-header > h1 {
         left: 50vw;
         margin: 0;
         position: fixed;
